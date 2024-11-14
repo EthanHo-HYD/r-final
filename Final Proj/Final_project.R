@@ -10,7 +10,7 @@ library(ggfortify)
 etAll <- data
 
 plot(etAll$score2024
-     ,log(etAll$GDP2024),
+     ,log(etAll$GDP2024) ,
      main = "2024",
      xlab = "score_percent",
      ylab = "GDP",
