@@ -13,6 +13,22 @@ etAll$score2016 <- 20 * etAll$gold2016 + 7 * etAll$silver2016 + 5 * etAll$bronze
 etAll$score2020 <- 20 * etAll$gold2020 + 7 * etAll$silver2020 + 5 * etAll$bronze2020
 etAll$score2024 <- 20 * etAll$gold2024 + 7 * etAll$silver2024 + 5 * etAll$bronze2024
 
+total2024gold = 329
+total2024silver = 330
+total2024bronze = 385
+
+total2020gold = 340
+total2020silver = 338
+total2020bronze = 402
+
+total2016gold = 306
+total2016silver = 307
+total2016bronze = 359
+
+total2024score <- 20 * total2024gold + 7 * total2024silver + 5 * total2024bronze
+total2020score <- 20 * total2020gold + 7 * total2020silver + 5 * total2020bronze
+total2016score <- 20 * total2016gold + 7 * total2016silver + 5 * total2016bronze
+
 ggplot(data = etAll, aes(x = score2024, y = log(GDP2024))) +
   geom_point(color = "blue", shape = 20, size = 3) +  
   ggtitle("2024 Paris") +
