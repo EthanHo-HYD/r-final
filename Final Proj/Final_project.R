@@ -7,8 +7,6 @@ library(ape)
 library(dplyr)
 library(ggfortify)
 
-rm(filtered_data)
-
 etAll <- data
 
 etAll$score2016 <- 20 * etAll$gold2016 + 7 * etAll$silver2016 + 5 * etAll$bronze2016
