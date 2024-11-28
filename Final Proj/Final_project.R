@@ -23,7 +23,7 @@ plot(etAll$score2024
      col = "blue",
      pch = 19)
 
-
+model
 model <- lm(score2024 ~ log(GDP2024)+log(pop2024), data=etAll)
 summary(model)
 
