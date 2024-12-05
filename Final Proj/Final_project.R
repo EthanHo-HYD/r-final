@@ -64,3 +64,8 @@ modelC <- lm(score2024 ~ GDP2024 + population2024, data=etAll)
 summary(modelC)
 autoplot(modelC)
 shapiro.test(modelC$residual)
+
+modelD <- lm(scorecagr ~ GDPcagr, data=etAll)
+summary(modelD)
+autoplot(modelD)
+shapiro.test(modelD$residual)
