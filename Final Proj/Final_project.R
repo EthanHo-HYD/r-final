@@ -34,7 +34,7 @@ etAll$score2016percentage <- etAll$score2016 / total2016score * 100
 etAll$score2020percentage <- etAll$score2020 / total2020score * 100
 etAll$score2024percentage <- etAll$score2024 / total2024score * 100
 
-p1 <- ggplot(data = etAll, aes(x = score2016percentage, y = log(GDP2016))) +
+p1 <- ggplot(data = etAll, aes(x = score2016percentage, y = log10(GDP2016))) +
   geom_point(color = "blue", shape = 20, size = 3) +  
   ggtitle("2016 Rio") +
   xlab("score percentage") +
@@ -46,7 +46,7 @@ p1 <- ggplot(data = etAll, aes(x = score2016percentage, y = log(GDP2016))) +
   )
 ggsave("images/2016score_gdp.png", plot = p1)
 
-p2 <- ggplot(data = etAll, aes(x = score2020percentage, y = log(GDP2020))) +
+p2 <- ggplot(data = etAll, aes(x = score2020percentage, y = log10(GDP2020))) +
   geom_point(color = "blue", shape = 20, size = 3) +  
   ggtitle("2020 Tokyo") +
   xlab("score percentage") +
@@ -58,7 +58,7 @@ p2 <- ggplot(data = etAll, aes(x = score2020percentage, y = log(GDP2020))) +
   )
 ggsave("images/2020score_gdp.png", plot = p2)
 
-p3 <- ggplot(data = etAll, aes(x = score2024percentage, y = log(GDP2024))) +
+p3 <- ggplot(data = etAll, aes(x = score2024percentage, y = log10(GDP2024))) +
   geom_point(color = "blue", shape = 20, size = 3) +  
   ggtitle("2024 Paris") +
   xlab("score percentage") +
@@ -70,7 +70,7 @@ p3 <- ggplot(data = etAll, aes(x = score2024percentage, y = log(GDP2024))) +
   )
 ggsave("images/2024score_gdp.png", plot = p3)
 
-p4 <- ggplot(data = etAll, aes(x = score2016percentage, y = log(population2016))) +
+p4 <- ggplot(data = etAll, aes(x = score2016percentage, y = log10(population2016))) +
   geom_point(color = "blue", shape = 20, size = 3) +  
   ggtitle("2016 Rio") +
   xlab("score percentage") +
@@ -82,7 +82,7 @@ p4 <- ggplot(data = etAll, aes(x = score2016percentage, y = log(population2016))
   )
 ggsave("images/2016score_population.png", plot = p4)
 
-p5 <- ggplot(data = etAll, aes(x = score2020percentage, y = log(population2020))) +
+p5 <- ggplot(data = etAll, aes(x = score2020percentage, y = log10(population2020))) +
   geom_point(color = "blue", shape = 20, size = 3) +  
   ggtitle("2020 Tokyo") +
   xlab("score percentage") +
@@ -94,7 +94,7 @@ p5 <- ggplot(data = etAll, aes(x = score2020percentage, y = log(population2020))
   )
 ggsave("images/2020score_population.png", plot = p5)
 
-p6 <- ggplot(data = etAll, aes(x = score2024percentage, y = log(population2024))) +
+p6 <- ggplot(data = etAll, aes(x = score2024percentage, y = log10(population2024))) +
   geom_point(color = "blue", shape = 20, size = 3) +  
   ggtitle("2024 Paris") +
   xlab("score percentage") +
@@ -106,9 +106,14 @@ p6 <- ggplot(data = etAll, aes(x = score2024percentage, y = log(population2024))
   )
 ggsave("images/2024score_population.png", plot = p6)
 
+modelA <- lm(score2024 ~ log10(GDP2024), data=etAll)
+summary(modelA)
+modelB <- lm(score2024 ~ log10(population2024), data=etAll)
+summary(modelB)
+modelC <- lm(score2024 ~ log10(GDP2024) + log10(population2024), data=etAll)
+summary(modelC)
 
-model <- lm(score2024 ~ log(GDP2024) + log(population2024), data=etAll)
-summary(model)
 
 autoplot(model) #畫出模型診斷的圖
 shapiro.test(model$residual) #殘差項常態性檢定
+
