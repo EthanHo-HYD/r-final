@@ -8,7 +8,6 @@ library(dplyr)
 library(ggfortify)
 
 etAll <- read.csv("Final Proj/data.csv")
-
 etAll$index <- c(1:43)
 
 etAll$score2016 <- 20 * etAll$gold2016 + 7 * etAll$silver2016 + 5 * etAll$bronze2016
@@ -65,8 +64,3 @@ modelC <- lm(score2024 ~ GDP2024 + population2024, data=etAll)
 summary(modelC)
 autoplot(modelC)
 shapiro.test(modelC$residual)
-
-modelD <- lm(scorecagr ~ GDPcagr, data = etAll)
-summary(modelD)
-autoplot(modelD)
-shapiro.test(modelD$residual)

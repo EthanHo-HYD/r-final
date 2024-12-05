@@ -17,7 +17,7 @@ p1 <- ggplot(data = etAll, aes(x = index, group = 1)) +
   geom_point(aes(y = score2016percentage), color = "coral", size = 3) +
   geom_point(aes(y = score2020percentage), color = "cornflowerblue", size = 3) +
   geom_point(aes(y = score2024percentage), color = "purple", size = 3) +
-  ggtitle("Data") +
+  ggtitle("RawData") +
   xlab("States") +
   theme(
     plot.title = element_text(size = 20, face = "bold"),
@@ -27,8 +27,9 @@ p1 <- ggplot(data = etAll, aes(x = index, group = 1)) +
     axis.title.y = element_blank(),
     aspect.ratio = 0.5
   )
-p1
 ggsave("images/rowdata.png", plot = p1)
+
+
 
 p2 <- ggplot(data = etAll, aes(x = index, group = 1)) +
   geom_line(aes(y = log10(GDP2016)), color = "blue") +
@@ -49,7 +50,7 @@ p2 <- ggplot(data = etAll, aes(x = index, group = 1)) +
   geom_point(aes(y = score2016percentage), color = "coral", size = 3) +
   geom_point(aes(y = score2020percentage), color = "cornflowerblue", size = 3) +
   geom_point(aes(y = score2024percentage), color = "purple", size = 3) +
-  ggtitle("Data") +
+  ggtitle("LogData") +
   xlab("States") +
   theme(
     plot.title = element_text(size = 20, face = "bold"),
@@ -59,5 +60,5 @@ p2 <- ggplot(data = etAll, aes(x = index, group = 1)) +
     axis.title.y = element_blank(),
     aspect.ratio = 0.5
   )
-p2
 ggsave("images/logdata.png", plot = p2)
+
