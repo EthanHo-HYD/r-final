@@ -7,9 +7,9 @@ library(ape)
 library(dplyr)
 library(ggfortify)
 
-#etAll <- data
-etAll <- read.csv("Final Proj/data.csv")
+# ---------------------------------------------------------------------數據處理
 
+etAll <- read.csv("Final Proj/data.csv")
 etAll$index <- c(1:45)
 
 etAll$score2016 <- 20 * etAll$gold2016 + 7 * etAll$silver2016 + 5 * etAll$bronze2016
@@ -36,12 +36,100 @@ etAll$score2016percentage <- etAll$score2016 / total2016score * 100
 etAll$score2020percentage <- etAll$score2020 / total2020score * 100
 etAll$score2024percentage <- etAll$score2024 / total2024score * 100
 
+
+# ---------------------------------------------------------------------繪製圖形（資訊可視化）
+
+
+p1 <- ggplot(data = etAll, aes(x = score2016percentage, y = log10(GDP2016))) +
+  geom_point(color = "blue", shape = 20, size = 3) +  
+  ggtitle("2016 Rio") +
+  xlab("score percentage") +
+  ylab("log (GDP)") +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),  
+    axis.title = element_text(size = 16),  
+    axis.text = element_text(size = 14)    
+  )
+ggsave("images/2016score_gdp.png", plot = p1)
+
+p2 <- ggplot(data = etAll, aes(x = score2020percentage, y = log10(GDP2020))) +
+  geom_point(color = "blue", shape = 20, size = 3) +  
+  ggtitle("2020 Tokyo") +
+  xlab("score percentage") +
+  ylab("log (GDP)") +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),  
+    axis.title = element_text(size = 16),  
+    axis.text = element_text(size = 14)    
+  )
+ggsave("images/2020score_gdp.png", plot = p2)
+
+p3 <- ggplot(data = etAll, aes(x = score2024percentage, y = log10(GDP2024))) +
+  geom_point(color = "blue", shape = 20, size = 3) +  
+  ggtitle("2024 Paris") +
+  xlab("score percentage") +
+  ylab("log (GDP)") +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),  
+    axis.title = element_text(size = 16),  
+    axis.text = element_text(size = 14)    
+  )
+ggsave("images/2024score_gdp.png", plot = p3)
+
+p4 <- ggplot(data = etAll, aes(x = score2016percentage, y = log10(population2016))) +
+  geom_point(color = "blue", shape = 20, size = 3) +  
+  ggtitle("2016 Rio") +
+  xlab("score percentage") +
+  ylab("log (population)") +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),  
+    axis.title = element_text(size = 16),  
+    axis.text = element_text(size = 14)    
+  )
+ggsave("images/2016score_population.png", plot = p4)
+
+p5 <- ggplot(data = etAll, aes(x = score2020percentage, y = log10(population2020))) +
+  geom_point(color = "blue", shape = 20, size = 3) +  
+  ggtitle("2020 Tokyo") +
+  xlab("score percentage") +
+  ylab("log (population)") +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),  
+    axis.title = element_text(size = 16),  
+    axis.text = element_text(size = 14)    
+  )
+ggsave("images/2020score_population.png", plot = p5)
+
+p6 <- ggplot(data = etAll, aes(x = score2024percentage, y = log10(population2024))) +
+  geom_point(color = "blue", shape = 20, size = 3) +  
+  ggtitle("2024 Paris") +
+  xlab("score percentage") +
+  ylab("log (population)") +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),  
+    axis.title = element_text(size = 16),  
+    axis.text = element_text(size = 14)    
+  )
+ggsave("images/2024score_population.png", plot = p6)
+
+
+# ---------------------------------------------------------------線性回歸模型
+
+
 modelA <- lm(score2024 ~ log10(GDP2024), data=etAll)
 summary(modelA)
+autoplot(modelA) #畫出模型診斷的圖
+shapiro.test(modelA$residual) #殘差項常態性檢定
+
 modelB <- lm(score2024 ~ log10(population2024), data=etAll)
 summary(modelB)
+autoplot(modelB) 
+shapiro.test(modelB$residual) 
+
 modelC <- lm(score2024 ~ log10(GDP2024) + log10(population2024), data=etAll)
 summary(modelC)
+autoplot(modelC) 
+shapiro.test(modelC$residual) 
 
-# autoplot(model) #畫出模型診斷的圖
-# shapiro.test(model$residual) #殘差項常態性檢定
+
+
