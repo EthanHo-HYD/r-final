@@ -117,8 +117,8 @@ ggsave("images/2024score_population.png", plot = p6)
 
 model2024 <- lm(score2024 ~ log10(GDP2024) + log10(population2024), data=etAll)
 summary(model2024)
-autoplot(model2024) 
-shapiro.test(model2024$residual) 
+autoplot(model2024) #畫出模型診斷的圖
+shapiro.test(model2024$residual) #殘差項常態性檢定
 
 model2020 <- lm(score2020 ~ log10(GDP2020) + log10(population2020), data=etAll)
 summary(model2020)
@@ -130,6 +130,3 @@ summary(model2016)
 autoplot(model2016) 
 shapiro.test(model2016$residual) 
 
-
-autoplot(modelA) #畫出模型診斷的圖
-shapiro.test(modelA$residual) #殘差項常態性檢定
