@@ -10,7 +10,7 @@ library(ggfortify)
 # ---------------------------------------------------------------------數據處理
 
 etAll <- read.csv("Final Proj/data.csv")
-etAll$index <- c(1:45)
+etAll$index <- c(1:43)
 
 etAll$score2016 <- 20 * etAll$gold2016 + 7 * etAll$silver2016 + 5 * etAll$bronze2016
 etAll$score2020 <- 20 * etAll$gold2020 + 7 * etAll$silver2020 + 5 * etAll$bronze2020
@@ -115,21 +115,21 @@ ggsave("images/2024score_population.png", plot = p6)
 
 # ---------------------------------------------------------------線性回歸模型
 
+model2024 <- lm(score2024 ~ log10(GDP2024) + log10(population2024), data=etAll)
+summary(model2024)
+autoplot(model2024) 
+shapiro.test(model2024$residual) 
 
-modelA <- lm(score2024 ~ log10(GDP2024), data=etAll)
-summary(modelA)
+model2020 <- lm(score2020 ~ log10(GDP2020) + log10(population2020), data=etAll)
+summary(model2020)
+autoplot(model2020) 
+shapiro.test(model2020$residual)
+
+model2016 <- lm(score2016 ~ log10(GDP2016) + log10(population2016), data=etAll)
+summary(model2016)
+autoplot(model2016) 
+shapiro.test(model2016$residual) 
+
+
 autoplot(modelA) #畫出模型診斷的圖
 shapiro.test(modelA$residual) #殘差項常態性檢定
-
-modelB <- lm(score2024 ~ log10(population2024), data=etAll)
-summary(modelB)
-autoplot(modelB) 
-shapiro.test(modelB$residual) 
-
-modelC <- lm(score2024 ~ log10(GDP2024) + log10(population2024), data=etAll)
-summary(modelC)
-autoplot(modelC) 
-shapiro.test(modelC$residual) 
-
-
-
