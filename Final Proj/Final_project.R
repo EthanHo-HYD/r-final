@@ -27,6 +27,10 @@ total2016gold = 306
 total2016silver = 307
 total2016bronze = 359
 
+etAll$GDPcagr <- ((etAll$GDP2024 / etAll$GDP2016) ^ 0.125 - 1) * 100
+etAll$scorecagr <- ((etAll$score2024 / etAll$score2016) ^ 0.125 - 1) * 100
+etAll$populationcagr <- ((etAll$population2024 / etAll$population2016) ^ 0.125 - 1) * 100
+
 total2024score <- 20 * total2024gold + 7 * total2024silver + 5 * total2024bronze
 total2020score <- 20 * total2020gold + 7 * total2020silver + 5 * total2020bronze
 total2016score <- 20 * total2016gold + 7 * total2016silver + 5 * total2016bronze
@@ -47,17 +51,22 @@ etAll$GDP2016log <- log10(etAll$GDP2016)
 etAll$GDP2020log <- log10(etAll$GDP2020)
 etAll$GDP2024log <- log10(etAll$GDP2024)
 
-modelA <- lm(score2024 ~ log10(GDP2024), data=etAll)
+modelA <- lm(score2020percentage ~ GDP2020log, data=etAll)
 summary(modelA)
-autoplot(modelA) #畫出模型診斷的圖
-shapiro.test(modelA$residual) #殘差項常態性檢定
+autoplot(modelA)
+shapiro.test(modelA$residual)
 
-modelB <- lm(score2024 ~ log10(population2024), data=etAll)
+modelB <- lm(score2024percentage ~ population2024log, data=etAll)
 summary(modelB)
 autoplot(modelB)
 shapiro.test(modelB$residual)
 
-modelC <- lm(log10(score2024) ~ log10(GDP2024) + log10(population2024), data=etAll)
+modelC <- lm(score2024 ~ GDP2024 + population2024, data=etAll)
 summary(modelC)
 autoplot(modelC)
 shapiro.test(modelC$residual)
+
+modelD <- lm(scorecagr ~ GDPcagr, data = etAll)
+summary(modelD)
+autoplot(modelD)
+shapiro.test(modelD$residual)
