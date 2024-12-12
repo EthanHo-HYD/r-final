@@ -29,8 +29,6 @@ p1 <- ggplot(data = etAll, aes(x = index, group = 1)) +
   )
 ggsave("images/rowdata.png", plot = p1)
 
-
-
 p2 <- ggplot(data = etAll, aes(x = index, group = 1)) +
   geom_line(aes(y = log10(GDP2016)), color = "blue") +
   geom_line(aes(y = log10(GDP2020)), color = "brown") +
@@ -61,4 +59,3 @@ p2 <- ggplot(data = etAll, aes(x = index, group = 1)) +
     aspect.ratio = 0.5
   )
 ggsave("images/logdata.png", plot = p2)
-
